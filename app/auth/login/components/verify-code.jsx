@@ -6,13 +6,13 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { Input } from "@/components/ui/input";
 import SubmitButton from "@/components/submit-button";
 
-const formSchema = z.object({
+export const verifyCodeSchema = z.object({
   code: z.string().min(5, "کد تایید ۵ رقم میباشد").max(5, "کد تایید ۵ رقم میباشد"),
 });
 
 const VerifyCode = () => {
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(verifyCodeSchema),
     defaultValues: {
       code: "",
     },
