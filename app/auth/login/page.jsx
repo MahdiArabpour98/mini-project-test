@@ -1,47 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
-import * as z from "zod";
+import PhoneNumber from "./components/phone-number";
 import "./login.css";
+import VerifyCode from "./components/verify-code";
 
 export default function Login() {
   const [step, setStep] = useState(1);
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [code, setCode] = useState("");
-  const [error, setError] = useState("");
+  const [userData, setUserData] = useState({
+    phoneNumber: "",
+    fullName: "",
+    code: "",
+    token: "",
+  });
 
-  const handleSubmitInfo = (e) => {
-    e.preventDefault();
-    setError("");
-
-    if (!lastName.trim()) {
-      setError("لطفاً نام خانوادگی را وارد کنید.");
-      return;
-    }
-
-    if (!/^09\d{9}$/.test(phone)) {
-      setError("شماره همراه باید ۱۱ رقم و با 09 شروع شود.");
-      return;
-    }
-
-    // در این مرحله باید درخواست ارسال پیامک به بک‌اند ارسال شود.
-    setStep(2);
-  };
-
-  const handleVerifyCode = (e) => {
-    e.preventDefault();
-    setError("");
-
-    if (!/^\d{6}$/.test(code)) {
-      setError("کد تأیید باید ۶ رقم باشد.");
-      return;
-    }
-
-    // اینجا کد باید از طریق API اعتبارسنجی شود.
-    setError("برای ورود نهایی، اتصال به API تأیید کد لازم است.");
+  const handleChangeStep = ({ step, data }) => {
+    setStep(step);
+    setUserData((prev) => ({ ...prev, ...data }));
   };
 
   return (
@@ -105,7 +80,7 @@ export default function Login() {
             <p className="form-description">
               {step === 1
                 ? "نام خانوادگی و شماره همراه خود را وارد کنید."
-                : `کد ارسال‌شده به شماره ${phone} را وارد کنید.`}
+                : `کد ارسال‌شده به شماره ${userData.phoneNumber} را وارد کنید.`}
             </p>
           </div>
 
@@ -167,7 +142,7 @@ export default function Login() {
             //     <span aria-hidden="true">←</span>
             //   </button>
             // </form>
-            <></>
+            <PhoneNumber handleChangeStep={handleChangeStep} />
           ) : (
             // <form onSubmit={handleVerifyCode} className="login-form">
             //   <div className="form-group">
@@ -211,7 +186,7 @@ export default function Login() {
             //     بازگشت و ویرایش اطلاعات
             //   </button>
             // </form>
-            <></>
+            <VerifyCode />
           )}
 
           <div className="security-note">

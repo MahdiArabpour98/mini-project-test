@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
     <html
       lang="fa-IR"
       dir="rtl"
-      className={cn("dark h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
+      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
       <body className="flex min-h-full flex-col">
         {children}
