@@ -6,7 +6,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { Input } from "@/components/ui/input";
 import SubmitButton from "@/components/submit-button";
 
-const formSchema = z.object({
+export const phoneNumberSchema = z.object({
   phoneNumber: z
     .string()
     .startsWith("09", "شماره تماس صحیح نمیباشد")
@@ -21,7 +21,7 @@ const formSchema = z.object({
 
 const PhoneNumber = ({ handleChangeStep }) => {
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(phoneNumberSchema),
     defaultValues: {
       phoneNumber: "",
       fullName: "",
