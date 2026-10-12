@@ -1,0 +1,178 @@
+
+.investment-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgb(15 23 42 / 45%);
+  backdrop-filter: blur(3px);
+  animation: investment-overlay-in 180ms ease;
+}
+
+.investment-modal {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  padding: 36px 34px 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgb(15 23 42 / 18%);
+  animation: investment-modal-in 200ms ease;
+}
+
+.investment-modal-close {
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #64748b;
+  font-size: 26px;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.investment-modal-close:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.investment-modal h2 {
+  margin: 0 0 10px;
+  color: #172033;
+  font-size: 30px;
+  font-weight: 800;
+  text-align: right;
+}
+
+.investment-project-title {
+  margin: 0 0 28px;
+  color: #64748b;
+  font-size: 13px;
+  text-align: right;
+}
+
+.investment-amount-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.investment-amount-input {
+  display: block;
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  outline: none;
+  background: #f8fafc;
+  color: #172033;
+  font-family: inherit;
+  font-size: 15px;
+  direction: ltr;
+  text-align: right;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.investment-amount-input:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgb(34 197 94 / 12%);
+  background: #fff;
+}
+
+.investment-limits {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.investment-error {
+  margin: 14px 0 0;
+  color: #e11d48;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.investment-confirm-button {
+  display: block;
+  width: min(100%, 220px);
+  min-height: 54px;
+  margin: 72px auto 0;
+  border: 0;
+  border-radius: 12px;
+  background: #16e51a;
+  color: #fff;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.investment-confirm-button:hover {
+  background: #12c916;
+  transform: translateY(-1px);
+}
+
+.investment-confirm-button:active {
+  transform: translateY(0);
+}
+
+@keyframes investment-overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes investment-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .investment-modal {
+    padding: 32px 20px 24px;
+  }
+
+  .investment-modal h2 {
+    font-size: 26px;
+  }
+
+  .investment-confirm-button {
+    margin-top: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investment-modal-overlay,
+  .investment-modal {
+    animation: none;
+  }
+}

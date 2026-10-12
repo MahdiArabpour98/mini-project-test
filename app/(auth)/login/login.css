@@ -1,0 +1,393 @@
+/* تنظیمات عمومی */
+* {
+  box-sizing: border-box;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  background: #f8fafc;
+  font-family: Tahoma, Arial, sans-serif;
+  direction: rtl;
+}
+
+/* کارت اصلی */
+.login-card {
+  width: 100%;
+  max-width: 1024px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.09);
+}
+
+/* بخش معرفی سامانه */
+.login-intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 570px;
+  padding: 48px;
+  overflow: hidden;
+  color: #ffffff;
+  background: linear-gradient(135deg, #102c4c 0%, #173d60 50%, #176b5b 100%);
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #93c5fd;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+
+.brand-svg {
+  width: 28px;
+  height: 28px;
+}
+
+.brand-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.brand-subtitle {
+  margin: 5px 0 0;
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+.intro-message {
+  margin-top: 68px;
+}
+
+.intro-label {
+  margin: 0 0 12px;
+  color: #93c5fd;
+  font-size: 14px;
+}
+
+.intro-title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.intro-description {
+  max-width: 290px;
+  margin: 16px 0 0;
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 2;
+}
+
+/* دایره‌های تزئینی */
+.intro-decoration {
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.decoration-one {
+  width: 256px;
+  height: 256px;
+  bottom: -80px;
+  left: -64px;
+}
+
+.decoration-two {
+  width: 176px;
+  height: 176px;
+  bottom: -48px;
+  left: -32px;
+  border-color: rgba(147, 197, 253, 0.2);
+}
+
+.intro-footer {
+  position: relative;
+  z-index: 2;
+  margin: 48px 0 0;
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+/* بخش فرم */
+.login-form-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px;
+}
+
+.form-heading {
+  margin-bottom: 30px;
+}
+
+.form-label {
+  margin: 0 0 10px;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-title {
+  margin: 0;
+  color: #1e293b;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+.form-description {
+  margin: 10px 0 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 2;
+}
+
+/* نوار مراحل */
+.step-progress {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.progress-track {
+  flex: 1;
+  height: 6px;
+  overflow: hidden;
+  background: #f1f5f9;
+  border-radius: 20px;
+}
+
+.progress-fill {
+  width: 100%;
+  height: 100%;
+  background: #3b82f6;
+  border-radius: inherit;
+  transition: width 0.3s ease;
+}
+
+.progress-track:nth-child(2) .progress-fill {
+  width: 0;
+}
+
+.progress-track:nth-child(2) .progress-fill.progress-active {
+  width: 100%;
+}
+
+/* فرم و ورودی‌ها */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-label {
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.login-input {
+  width: 100%;
+  min-width: 0;
+  padding: 14px 16px;
+  color: #1e293b;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.login-input::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+}
+
+.login-input:focus {
+  background: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.phone-input {
+  text-align: left;
+  direction: ltr;
+}
+
+.verification-input {
+  padding: 16px;
+  text-align: center;
+  direction: ltr;
+  font-size: 24px;
+  letter-spacing: 8px;
+}
+
+/* پیام خطا */
+.login-error {
+  margin: -6px 0 0;
+  color: #dc2626;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+/* دکمه‌ها */
+.login-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 16px;
+  color: #ffffff;
+  background: #2563eb;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.18);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.login-button:hover {
+  background: #1d4ed8;
+}
+
+.login-button:active {
+  transform: scale(0.99);
+}
+
+.back-button {
+  width: 100%;
+  padding: 13px 16px;
+  color: #64748b;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.back-button:hover {
+  background: #f8fafc;
+}
+
+/* یادداشت امنیتی */
+.security-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+  color: #94a3b8;
+  font-size: 11px;
+  text-align: center;
+}
+
+/* واکنش‌گرایی */
+@media (max-width: 768px) {
+  .login-card {
+    max-width: 520px;
+    grid-template-columns: 1fr;
+  }
+
+  .login-intro {
+    min-height: auto;
+    padding: 32px;
+  }
+
+  .intro-message {
+    margin-top: 36px;
+  }
+
+  .intro-title {
+    font-size: 26px;
+  }
+
+  .intro-description {
+    max-width: 100%;
+  }
+
+  .intro-footer {
+    margin-top: 32px;
+  }
+
+  .login-form-section {
+    padding: 36px 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-page {
+    padding: 16px 12px;
+  }
+
+  .login-card {
+    border-radius: 18px;
+  }
+
+  .login-intro {
+    padding: 26px 22px;
+  }
+
+  .login-form-section {
+    padding: 28px 22px;
+  }
+
+  .form-title {
+    font-size: 21px;
+  }
+
+  .intro-title {
+    font-size: 24px;
+  }
+
+  .intro-message {
+    margin-top: 30px;
+  }
+}

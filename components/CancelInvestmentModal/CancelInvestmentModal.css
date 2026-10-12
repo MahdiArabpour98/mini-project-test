@@ -1,0 +1,146 @@
+
+.cancel-investment-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgb(0 0 0 / 35%);
+  animation: cancel-overlay-show 180ms ease;
+}
+
+.cancel-investment-modal {
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  min-height: 440px;
+  padding: 36px 7% 30px;
+  background: #d9d9d9;
+  color: #111;
+  font-family: inherit;
+}
+
+.cancel-investment-close {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: #333;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.cancel-investment-modal h2 {
+  margin: 0 0 16px;
+  font-size: clamp(25px, 4vw, 36px);
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.cancel-investment-project {
+  margin: -5px 0 15px;
+  color: #555;
+  font-size: 12px;
+  text-align: right;
+}
+
+.cancel-investment-input {
+  display: block;
+  width: 100%;
+  height: 38px;
+  padding: 5px 12px;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  background: #fff;
+  color: #111;
+  font-family: inherit;
+  font-size: 16px;
+  direction: ltr;
+  text-align: right;
+}
+
+.cancel-investment-input:focus {
+  outline: 2px solid #aaa;
+  outline-offset: 1px;
+}
+
+.cancel-investment-limits {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 9px;
+  color: #222;
+  font-size: clamp(11px, 2vw, 17px);
+  line-height: 1.7;
+}
+
+.cancel-investment-error {
+  margin: 12px 0 0;
+  color: #c62828;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.cancel-investment-confirm {
+  display: block;
+  width: 54%;
+  min-height: 58px;
+  margin: 100px auto 0;
+  border: none;
+  border-radius: 12px;
+  background: #12e600;
+  color: #fff;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 180ms ease;
+}
+
+.cancel-investment-confirm:hover {
+  background: #10c900;
+}
+
+.cancel-investment-confirm:active {
+  background: #0eaf00;
+}
+
+@keyframes cancel-overlay-show {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .cancel-investment-modal {
+    min-height: 390px;
+    padding: 38px 20px 24px;
+  }
+
+  .cancel-investment-limits {
+    font-size: 11px;
+  }
+
+  .cancel-investment-confirm {
+    width: 65%;
+    margin-top: 80px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cancel-investment-overlay {
+    animation: none;
+  }
+}
