@@ -1,23 +1,13 @@
-import * as z from "zod";
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "@/components/ui/toast";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import SubmitButton from "@/components/submit-button";
-
-export const phoneNumberSchema = z.object({
-  phoneNumber: z
-    .string()
-    .startsWith("09", "شماره تماس صحیح نمیباشد")
-    .min(11, "شماره تماس باید ۱۱ رقم باشد")
-    .max(11, "شماره تماس باید ۱۱ رقم باشد"),
-  fullName: z
-    .string()
-    .min(3, "نام و نام خانوادگی الزامی میباشد و میبایست حداقل ۳ حرف باشد")
-    .transform((value) => value.trim())
-    .pipe(z.string().min(3, "نام و نام خانوادگی الزامی میباشد و میبایست حداقل ۳ حرف باشد")),
-});
+import { sendVerifyCode } from "../actions/verify-code";
+import { phoneNumberSchema } from "@/lib/validations/auth-schema";
 
 const PhoneNumber = ({ handleChangeStep }) => {
   const form = useForm({
@@ -28,9 +18,25 @@ const PhoneNumber = ({ handleChangeStep }) => {
     },
   });
 
-  const onSubmit = (values) => {
-    toast.add({ description: " کد تایید برای شما ارسال شد" });
-    handleChangeStep(2, values);
+  // const onSubmit = (values) => {
+  //   toast.add({ description: " کد تایید برای شما ارسال شد" });
+  //   handleChangeStep(2, values);
+  // };
+
+  const onSubmit = async (values) => {
+    try {
+      const res = await sendVerifyCode(values);
+
+      if (res?.ok) {
+        toast.add(res?.message);
+        handleChangeStep(2, res.data);
+      } else {
+        toast.add(res?.message);
+      }
+    } catch (error) {
+      console.log("error", error);
+      toast.add(" مشکلی پیش آمده است. لطفا مجددا تلاش فرمائید");
+    }
   };
 
   return (

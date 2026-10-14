@@ -1,14 +1,12 @@
-import * as z from "zod";
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "@/components/ui/toast";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import SubmitButton from "@/components/submit-button";
-
-export const verifyCodeSchema = z.object({
-  code: z.string().min(5, "کد تایید ۵ رقم میباشد").max(5, "کد تایید ۵ رقم میباشد"),
-});
+import { verifyCodeSchema } from "@/lib/validations/auth-schema";
 
 const VerifyCode = () => {
   const form = useForm({
@@ -18,16 +16,22 @@ const VerifyCode = () => {
     },
   });
 
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting, errors },
+  } = form;
+
   const onSubmit = (values) => {
     toast.add({ description: "خوش آمدید" });
   };
 
   return (
-    <form id="form-rhf-input" onSubmit={form.handleSubmit(onSubmit)}>
+    <form id="form-rhf-input" onSubmit={handleSubmit(onSubmit)}>
       <FieldGroup>
         <Controller
           name="code"
-          control={form.control}
+          control={control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor="code" className="input-label">
@@ -45,7 +49,7 @@ const VerifyCode = () => {
             </Field>
           )}
         />
-        <SubmitButton className="mt-3" loading={false}>
+        <SubmitButton className="mt-3" loading={isSubmitting}>
           تایید
         </SubmitButton>
       </FieldGroup>

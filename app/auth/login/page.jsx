@@ -186,7 +186,7 @@ export default function Login() {
             //     بازگشت و ویرایش اطلاعات
             //   </button>
             // </form>
-            <VerifyCode />
+            <VerifyCode userData={userData} />
           )}
 
           <div className="security-note">

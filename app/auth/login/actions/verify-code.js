@@ -1,14 +1,11 @@
 "use server";
-import { sendSms } from "@/lib/backend/sms/send-sms";
+
 import { defaultMessages } from "@/lib/default-messages";
 import { generateRandomNumber } from "@/lib/generate-random-number";
 import prismadb from "@/lib/prismadb";
+import { sendSms } from "@/lib/send-sms";
 import { smsSignJwtAccessToken, smsVerifyJwt } from "@/lib/sms-jwt";
-import { handleRoleId } from "@/lib/user-features";
-import {
-  phoneNumberSchema,
-  verifyCodeSchema,
-} from "@/lib/validations/loginForm";
+import { phoneNumberSchema, verifyCodeSchema } from "@/lib/validations/auth-schema";
 
 export const sendVerifyCode = async (values) => {
   try {
@@ -30,20 +27,8 @@ export const sendVerifyCode = async (values) => {
       update: {},
       create: {
         phoneNumber,
-        username: phoneNumber,
-        userRoles: {
-          create: { roleName: "USER", roleId: +handleRoleId("USER") },
-        },
       },
     });
-
-    if (user.status !== "ACTIVE") {
-      return {
-        message: "اکانت کاربری شما غیر فعال میباشد",
-        status: 403,
-        ok: false,
-      };
-    }
 
     const randomNumber = generateRandomNumber(5, "string");
 
