@@ -1,22 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import PhoneNumber from "./components/phone-number";
+import PhoneNumber from "../components/phone-number";
+import VerifyCode from "../components/verify-code";
 import "./login.css";
-import VerifyCode from "./components/verify-code";
+import { sendVerifyCode } from "../actions/authentication";
 
 export default function Login() {
-  const [step, setStep] = useState(1);
   const [userData, setUserData] = useState({
     phoneNumber: "",
     fullName: "",
     code: "",
     token: "",
   });
+  const [step, setStep] = useState(1);
 
-  const handleChangeStep = ({ step, data }) => {
+  const handleChangeStep = (step = 1, values = {}) => {
+    setUserData((prev) => ({ ...prev, ...values }));
+    step === 2 && handleSendVerifyCOde(values);
     setStep(step);
-    setUserData((prev) => ({ ...prev, ...data }));
+  };
+
+  const handleSendVerifyCOde = async (values) => {
+    const res = await sendVerifyCode(values);
   };
 
   return (
@@ -80,7 +86,7 @@ export default function Login() {
             <p className="form-description">
               {step === 1
                 ? "نام خانوادگی و شماره همراه خود را وارد کنید."
-                : `کد ارسال‌شده به شماره ${userData.phoneNumber} را وارد کنید.`}
+                : `کد ارسال‌شده به شماره ${"phone"} را وارد کنید.`}
             </p>
           </div>
 
@@ -95,98 +101,9 @@ export default function Login() {
           </div>
 
           {step === 1 ? (
-            // <form onSubmit={handleSubmitInfo} className="login-form">
-            //   <div className="form-group">
-            //     <label htmlFor="lastName" className="input-label">
-            //       نام خانوادگی
-            //     </label>
-
-            //     <input
-            //       id="lastName"
-            //       type="text"
-            //       autoComplete="family-name"
-            //       value={lastName}
-            //       onChange={(e) => setLastName(e.target.value)}
-            //       placeholder="نام خانوادگی خود را وارد کنید"
-            //       className="login-input"
-            //     />
-            //   </div>
-
-            //   <div className="form-group">
-            //     <label htmlFor="phone" className="input-label">
-            //       شماره همراه
-            //     </label>
-
-            //     <input
-            //       id="phone"
-            //       type="tel"
-            //       inputMode="numeric"
-            //       autoComplete="tel-national"
-            //       maxLength={11}
-            //       value={phone}
-            //       onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 11))}
-            //       placeholder="09123456789"
-            //       className="login-input phone-input"
-            //       dir="ltr"
-            //     />
-            //   </div>
-
-            //   {error && (
-            //     <p role="alert" className="login-error">
-            //       {error}
-            //     </p>
-            //   )}
-
-            //   <button type="submit" className="login-button">
-            //     دریافت کد تأیید
-            //     <span aria-hidden="true">←</span>
-            //   </button>
-            // </form>
-            <PhoneNumber handleChangeStep={handleChangeStep} />
+            <PhoneNumber userData={userData} handleChangeStep={handleChangeStep} />
           ) : (
-            // <form onSubmit={handleVerifyCode} className="login-form">
-            //   <div className="form-group">
-            //     <label htmlFor="code" className="input-label">
-            //       کد تأیید شش‌رقمی
-            //     </label>
-
-            //     <input
-            //       id="code"
-            //       type="text"
-            //       inputMode="numeric"
-            //       autoComplete="one-time-code"
-            //       maxLength={6}
-            //       value={code}
-            //       onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-            //       placeholder="------"
-            //       className="login-input verification-input"
-            //       dir="ltr"
-            //     />
-            //   </div>
-
-            //   {error && (
-            //     <p role="alert" className="login-error">
-            //       {error}
-            //     </p>
-            //   )}
-
-            //   <button type="submit" className="login-button">
-            //     تأیید و ادامه
-            //   </button>
-
-            //   <button
-            //     type="button"
-            //     onClick={() => {
-            //       setStep(1);
-            //       setCode("");
-            //       setError("");
-            //     }}
-            //     className="back-button"
-            //   >
-            //     بازگشت و ویرایش اطلاعات
-            //   </button>
-            // </form>
-            <VerifyCode userData={userData} />
+            <VerifyCode userData={userData} handleChangeStep={handleChangeStep} />
           )}
 
           <div className="security-note">
