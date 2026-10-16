@@ -5,6 +5,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/toast";
 import { phoneNumberSchema } from "@/lib/validation/auth";
+import { sendVerifyCode } from "../actions/authentication";
 
 export default function PhoneNumber({ userData: { phoneNumber, fullName }, handleChangeStep }) {
   const form = useForm({
@@ -15,12 +16,19 @@ export default function PhoneNumber({ userData: { phoneNumber, fullName }, handl
     },
   });
 
-  function onSubmit(values) {
-    handleChangeStep(2, values);
-    toast.add({
-      title: "کد تایید برای شما ارسال شد.",
-    });
-  }
+  const onSubmit = async (values) => {
+    const res = await sendVerifyCode(values);
+
+    console.log("res", res);
+
+    if (res?.ok) {
+      toast.add({
+        title: res?.message,
+      });
+    }
+
+    handleChangeStep(2, res?.data);
+  };
 
   return (
     <form id="form-rhf-input" onSubmit={form.handleSubmit(onSubmit)}>

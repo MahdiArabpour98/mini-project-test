@@ -4,7 +4,6 @@ import { useState } from "react";
 import PhoneNumber from "../components/phone-number";
 import VerifyCode from "../components/verify-code";
 import "./login.css";
-import { sendVerifyCode } from "../actions/authentication";
 
 export default function Login() {
   const [userData, setUserData] = useState({
@@ -16,14 +15,12 @@ export default function Login() {
   const [step, setStep] = useState(1);
 
   const handleChangeStep = (step = 1, values = {}) => {
+    console.log("values", values);
     setUserData((prev) => ({ ...prev, ...values }));
-    step === 2 && handleSendVerifyCOde(values);
     setStep(step);
   };
 
-  const handleSendVerifyCOde = async (values) => {
-    const res = await sendVerifyCode(values);
-  };
+  console.log("userData", userData);
 
   return (
     <main className="login-page" dir="rtl">
