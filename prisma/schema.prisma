@@ -18,7 +18,7 @@ model User {
   profileImage String?  @unique
   thumbnail    String?  @unique
   address      String?
-  Balance      Decimal  @default("0")
+  balance      String   @default("0")
   role         RoleName @default(USER)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

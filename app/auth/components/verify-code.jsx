@@ -34,40 +34,38 @@ export default function VerifyCode({ userData, handleChangeStep }) {
   };
 
   return (
-    <>
-      <form id="form-rhf-input" onSubmit={handleSubmit(onSubmit)}>
-        <FieldGroup>
-          <Controller
-            name="code"
-            control={control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="form-rhf-input-code">کد تایید</FieldLabel>
-                <Input
-                  {...field}
-                  id="form-rhf-input-code"
-                  type="number"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="* * * * *"
-                />
-                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-              </Field>
-            )}
-          />
-          <Button type="submit" form="form-rhf-input">
-            تایید
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => {
-              handleChangeStep(1);
-            }}
-          >
-            ویرایش شماره تماس
-          </Button>
-        </FieldGroup>
-      </form>
-    </>
+    <form id="form-rhf-input" onSubmit={handleSubmit(onSubmit)}>
+      <FieldGroup>
+        <Controller
+          name="code"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="form-rhf-input-code">کد تایید</FieldLabel>
+              <Input
+                {...field}
+                id="form-rhf-input-code"
+                type="number"
+                aria-invalid={fieldState.invalid}
+                placeholder="* * * * *"
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+        <Button type="submit" form="form-rhf-input">
+          تایید
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => {
+            handleChangeStep(1);
+          }}
+        >
+          ویرایش شماره تماس
+        </Button>
+      </FieldGroup>
+    </form>
   );
 }

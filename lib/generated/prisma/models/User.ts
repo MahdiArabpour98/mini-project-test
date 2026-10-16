@@ -28,12 +28,10 @@ export type AggregateUser = {
 
 export type UserAvgAggregateOutputType = {
   id: number | null
-  Balance: runtime.Decimal | null
 }
 
 export type UserSumAggregateOutputType = {
   id: number | null
-  Balance: runtime.Decimal | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -47,7 +45,7 @@ export type UserMinAggregateOutputType = {
   profileImage: string | null
   thumbnail: string | null
   address: string | null
-  Balance: runtime.Decimal | null
+  balance: string | null
   role: $Enums.RoleName | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -64,7 +62,7 @@ export type UserMaxAggregateOutputType = {
   profileImage: string | null
   thumbnail: string | null
   address: string | null
-  Balance: runtime.Decimal | null
+  balance: string | null
   role: $Enums.RoleName | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -81,7 +79,7 @@ export type UserCountAggregateOutputType = {
   profileImage: number
   thumbnail: number
   address: number
-  Balance: number
+  balance: number
   role: number
   createdAt: number
   updatedAt: number
@@ -91,12 +89,10 @@ export type UserCountAggregateOutputType = {
 
 export type UserAvgAggregateInputType = {
   id?: true
-  Balance?: true
 }
 
 export type UserSumAggregateInputType = {
   id?: true
-  Balance?: true
 }
 
 export type UserMinAggregateInputType = {
@@ -110,7 +106,7 @@ export type UserMinAggregateInputType = {
   profileImage?: true
   thumbnail?: true
   address?: true
-  Balance?: true
+  balance?: true
   role?: true
   createdAt?: true
   updatedAt?: true
@@ -127,7 +123,7 @@ export type UserMaxAggregateInputType = {
   profileImage?: true
   thumbnail?: true
   address?: true
-  Balance?: true
+  balance?: true
   role?: true
   createdAt?: true
   updatedAt?: true
@@ -144,7 +140,7 @@ export type UserCountAggregateInputType = {
   profileImage?: true
   thumbnail?: true
   address?: true
-  Balance?: true
+  balance?: true
   role?: true
   createdAt?: true
   updatedAt?: true
@@ -248,7 +244,7 @@ export type UserGroupByOutputType = {
   profileImage: string | null
   thumbnail: string | null
   address: string | null
-  Balance: runtime.Decimal
+  balance: string
   role: $Enums.RoleName
   createdAt: Date
   updatedAt: Date
@@ -288,7 +284,7 @@ export type UserWhereInput = {
   profileImage?: Prisma.StringNullableFilter<"User"> | string | null
   thumbnail?: Prisma.StringNullableFilter<"User"> | string | null
   address?: Prisma.StringNullableFilter<"User"> | string | null
-  Balance?: Prisma.DecimalFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleNameFilter<"User"> | $Enums.RoleName
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -306,7 +302,7 @@ export type UserOrderByWithRelationInput = {
   profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
   thumbnail?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
-  Balance?: Prisma.SortOrder
+  balance?: Prisma.SortOrder
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -327,7 +323,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   email?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringNullableFilter<"User"> | string | null
   address?: Prisma.StringNullableFilter<"User"> | string | null
-  Balance?: Prisma.DecimalFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleNameFilter<"User"> | $Enums.RoleName
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -345,7 +341,7 @@ export type UserOrderByWithAggregationInput = {
   profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
   thumbnail?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
-  Balance?: Prisma.SortOrder
+  balance?: Prisma.SortOrder
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -370,7 +366,7 @@ export type UserScalarWhereWithAggregatesInput = {
   profileImage?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   thumbnail?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  Balance?: Prisma.DecimalWithAggregatesFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleNameWithAggregatesFilter<"User"> | $Enums.RoleName
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -386,7 +382,7 @@ export type UserCreateInput = {
   profileImage?: string | null
   thumbnail?: string | null
   address?: string | null
-  Balance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: string
   role?: $Enums.RoleName
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -404,7 +400,7 @@ export type UserUncheckedCreateInput = {
   profileImage?: string | null
   thumbnail?: string | null
   address?: string | null
-  Balance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: string
   role?: $Enums.RoleName
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -421,7 +417,7 @@ export type UserUpdateInput = {
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  Balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -439,7 +435,7 @@ export type UserUncheckedUpdateInput = {
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  Balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -457,7 +453,7 @@ export type UserCreateManyInput = {
   profileImage?: string | null
   thumbnail?: string | null
   address?: string | null
-  Balance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: string
   role?: $Enums.RoleName
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -473,7 +469,7 @@ export type UserUpdateManyMutationInput = {
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  Balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -490,7 +486,7 @@ export type UserUncheckedUpdateManyInput = {
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  Balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -507,7 +503,7 @@ export type UserCountOrderByAggregateInput = {
   profileImage?: Prisma.SortOrder
   thumbnail?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  Balance?: Prisma.SortOrder
+  balance?: Prisma.SortOrder
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -515,7 +511,6 @@ export type UserCountOrderByAggregateInput = {
 
 export type UserAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  Balance?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -529,7 +524,7 @@ export type UserMaxOrderByAggregateInput = {
   profileImage?: Prisma.SortOrder
   thumbnail?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  Balance?: Prisma.SortOrder
+  balance?: Prisma.SortOrder
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -546,7 +541,7 @@ export type UserMinOrderByAggregateInput = {
   profileImage?: Prisma.SortOrder
   thumbnail?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  Balance?: Prisma.SortOrder
+  balance?: Prisma.SortOrder
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -554,7 +549,6 @@ export type UserMinOrderByAggregateInput = {
 
 export type UserSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  Balance?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -568,14 +562,6 @@ export type StringFieldUpdateOperationsInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
-}
-
-export type DecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type EnumRoleNameFieldUpdateOperationsInput = {
@@ -618,7 +604,7 @@ export type UserCreateWithoutPostsInput = {
   profileImage?: string | null
   thumbnail?: string | null
   address?: string | null
-  Balance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: string
   role?: $Enums.RoleName
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -635,7 +621,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   profileImage?: string | null
   thumbnail?: string | null
   address?: string | null
-  Balance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: string
   role?: $Enums.RoleName
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -667,7 +653,7 @@ export type UserUpdateWithoutPostsInput = {
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  Balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -684,7 +670,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  Balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  balance?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleNameFieldUpdateOperationsInput | $Enums.RoleName
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -732,7 +718,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   profileImage?: boolean
   thumbnail?: boolean
   address?: boolean
-  Balance?: boolean
+  balance?: boolean
   role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -751,7 +737,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   profileImage?: boolean
   thumbnail?: boolean
   address?: boolean
-  Balance?: boolean
+  balance?: boolean
   role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -768,7 +754,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   profileImage?: boolean
   thumbnail?: boolean
   address?: boolean
-  Balance?: boolean
+  balance?: boolean
   role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -785,13 +771,13 @@ export type UserSelectScalar = {
   profileImage?: boolean
   thumbnail?: boolean
   address?: boolean
-  Balance?: boolean
+  balance?: boolean
   role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "phoneNumber" | "username" | "fullName" | "nationalCode" | "email" | "password" | "profileImage" | "thumbnail" | "address" | "Balance" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "phoneNumber" | "username" | "fullName" | "nationalCode" | "email" | "password" | "profileImage" | "thumbnail" | "address" | "balance" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -815,7 +801,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     profileImage: string | null
     thumbnail: string | null
     address: string | null
-    Balance: runtime.Decimal
+    balance: string
     role: $Enums.RoleName
     createdAt: Date
     updatedAt: Date
@@ -1253,7 +1239,7 @@ export interface UserFieldRefs {
   readonly profileImage: Prisma.FieldRef<"User", 'String'>
   readonly thumbnail: Prisma.FieldRef<"User", 'String'>
   readonly address: Prisma.FieldRef<"User", 'String'>
-  readonly Balance: Prisma.FieldRef<"User", 'Decimal'>
+  readonly balance: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'RoleName'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>

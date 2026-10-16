@@ -82,7 +82,7 @@ export const UserScalarFieldEnum = {
   profileImage: 'profileImage',
   thumbnail: 'thumbnail',
   address: 'address',
-  Balance: 'Balance',
+  balance: 'balance',
   role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
