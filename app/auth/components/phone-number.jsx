@@ -7,14 +7,15 @@ import { toast } from "@/components/ui/toast";
 import { phoneNumberSchema } from "@/lib/validation/auth";
 import { sendVerifyCode } from "../actions/authentication";
 
-export default function PhoneNumber({ userData: { phoneNumber, fullName }, handleChangeStep }) {
+export default function PhoneNumber({ userData: { phoneNumber }, handleChangeStep }) {
   const form = useForm({
     resolver: zodResolver(phoneNumberSchema),
     defaultValues: {
       phoneNumber,
-      fullName,
     },
   });
+
+  const { control, handleSubmit } = form;
 
   const onSubmit = async (values) => {
     const res = await sendVerifyCode(values);
@@ -31,11 +32,11 @@ export default function PhoneNumber({ userData: { phoneNumber, fullName }, handl
   };
 
   return (
-    <form id="form-rhf-input" onSubmit={form.handleSubmit(onSubmit)}>
+    <form id="form-rhf-input" onSubmit={handleSubmit(onSubmit)}>
       <FieldGroup>
         <Controller
           name="phoneNumber"
-          control={form.control}
+          control={control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor="form-rhf-input-phoneNumber">شماره تماس</FieldLabel>
@@ -50,22 +51,7 @@ export default function PhoneNumber({ userData: { phoneNumber, fullName }, handl
             </Field>
           )}
         />
-        <Controller
-          name="fullName"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="form-rhf-input-fullName">نام و نام خانوادگی</FieldLabel>
-              <Input
-                {...field}
-                id="form-rhf-input-fullName"
-                aria-invalid={fieldState.invalid}
-                placeholder="نام و نام خانوادگی"
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
+
         <Button type="submit" form="form-rhf-input">
           دریافت کد تایید
         </Button>

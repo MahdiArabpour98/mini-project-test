@@ -8,7 +8,6 @@ import "./login.css";
 export default function Login() {
   const [userData, setUserData] = useState({
     phoneNumber: "",
-    fullName: "",
     code: "",
     token: "",
   });
@@ -20,7 +19,7 @@ export default function Login() {
     setStep(step);
   };
 
-  console.log("userData", userData);
+  // console.log("userData", userData);
 
   return (
     <main className="login-page" dir="rtl">
@@ -83,7 +82,7 @@ export default function Login() {
             <p className="form-description">
               {step === 1
                 ? "نام خانوادگی و شماره همراه خود را وارد کنید."
-                : `کد ارسال‌شده به شماره ${"phone"} را وارد کنید.`}
+                : `کد ارسال‌شده به شماره ${userData.phoneNumber} را وارد کنید.`}
             </p>
           </div>
 

@@ -2,9 +2,9 @@
 
 import { generateRandomNumber } from "@/lib/generate-random-number";
 import { handleSendSMS } from "@/lib/handle-send-sms";
-import { signJWTAccessToken } from "@/lib/jwt";
+import { signJWTAccessToken, verifyJWT } from "@/lib/jwt";
 import prismadb from "@/lib/prismadb";
-import { phoneNumberSchema } from "@/lib/validation/auth";
+import { phoneNumberSchema, verifyCodeSchema } from "@/lib/validation/auth";
 
 export const sendVerifyCode = async (values) => {
   try {
@@ -31,7 +31,9 @@ export const sendVerifyCode = async (values) => {
 
     const randomNumber = generateRandomNumber(5, "string");
 
-    const verifyToken = signJWTAccessToken({ ...values, code: randomNumber }, 300);
+    console.log("randomNumber", randomNumber);
+
+    const verifyToken = signJWTAccessToken({ ...values, code: randomNumber }, 600);
 
     const smsInitialData = {
       mobile: phoneNumber,
@@ -80,6 +82,51 @@ export const sendVerifyCode = async (values) => {
     return smsRes;
   } catch (error) {
     console.log("[SEND_VERIFY_CODE_ERROR]", error);
+
+    return {
+      message: JSON.stringify({
+        message: "Internal error",
+        error: error.message,
+      }),
+      status: 500,
+      ok: false,
+    };
+  }
+};
+
+export const checkVerifyCode = async (values) => {
+  try {
+    const validateData = verifyCodeSchema.safeParse(values);
+    console.log("values", values);
+
+    if (!validateData.success) {
+      return {
+        ok: false,
+        status: 400,
+        message: "فرمت دیتای ارسالی صحیح نمیباشد",
+        errors: validateData.error.flatten().fieldErrors,
+      };
+    }
+
+    const validateToken = values?.token ? verifyJWT(values?.token) : null;
+
+    // console.log("validateToken", validateToken);
+
+    if (!validateToken || validateToken?.code !== values?.code || validateToken?.phoneNumber !== values?.phoneNumber) {
+      return {
+        message: "کد تایید وارد شده صحیح نمیباشد",
+        status: 400,
+        ok: false,
+      };
+    }
+
+    return {
+      message: "خوش آمدید",
+      status: 200,
+      ok: true,
+    };
+  } catch (error) {
+    console.log("[CHECK_VERIFY_CODE_ERROR]", error.message);
 
     return {
       message: JSON.stringify({
