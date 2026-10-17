@@ -46,6 +46,24 @@ export const getAllUsers = async (options = {}) => {
   };
 };
 
+export const getUserById = async (id) => {
+  const data = await prismadb.user.findUnique({
+    where: {
+      id,
+    },
+    include: { posts: true },
+  });
+
+  return {
+    ok: true,
+    status: 200,
+
+    data,
+
+    message: "داده ها ارسال شدند",
+  };
+};
+
 export const createUser = async (values) => {
   const validateData = userSchema.safeParse(values);
 

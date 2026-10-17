@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Modal } from "@/components/modal";
 import { Button } from "@/components/ui/button";
-import { IconEdit, IconTrash } from "@tabler/icons-react";
+import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
 import CreateForm from "./create-form";
 import { toast } from "@/components/ui/toast";
 import { deleteUser } from "../actions/crud";
+import Link from "next/link";
+import { routes } from "@/lib/routes/routes";
 
 export default function CellActions({ cellData }) {
   const [open, setOpen] = useState(false);
@@ -29,6 +31,11 @@ export default function CellActions({ cellData }) {
         <Button size="icon" variant="destructive" onClick={() => setDOpen(true)}>
           <IconTrash />
         </Button>
+        <Link href={routes.panel.user(cellData?.id)}>
+          <Button size="icon" variant="success">
+            <IconEye />
+          </Button>
+        </Link>
       </div>
       <Modal open={open} onOpenChange={setOpen}>
         <CreateForm

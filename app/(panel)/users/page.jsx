@@ -1,8 +1,8 @@
 import { getAllUsers } from "./actions/crud";
 import { columns } from "./components/columns";
 import { DataTable } from "../../../components/data-table/data-table";
-import { Button } from "@/components/ui/button";
 import CreateModal from "./components/create-modal";
+import { Suspense } from "react";
 
 export default async function UsersPage({ searchParams }) {
   const sp = await searchParams;
@@ -24,10 +24,11 @@ export default async function UsersPage({ searchParams }) {
   const { data, ...otherData } = fetchedData;
 
   return (
-    <div className="container mx-auto space-y-4 p-10 py-10">
-      <CreateModal />
-
-      <DataTable columns={columns} data={data} options={otherData} />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="container mx-auto space-y-4 p-10 py-10">
+        <CreateModal />
+        <DataTable columns={columns} data={data} options={otherData} />
+      </div>
+    </Suspense>
   );
 }

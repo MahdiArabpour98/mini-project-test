@@ -1,11 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/toast";
 import { phoneNumberSchema } from "@/lib/validation/auth";
 import { sendVerifyCode } from "../actions/authentication";
+import SubmitButton from "@/components/submit-button";
 
 export default function PhoneNumber({ userData: { phoneNumber }, handleChangeStep }) {
   const form = useForm({
@@ -15,7 +15,11 @@ export default function PhoneNumber({ userData: { phoneNumber }, handleChangeSte
     },
   });
 
-  const { control, handleSubmit } = form;
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = form;
 
   const onSubmit = async (values) => {
     const res = await sendVerifyCode(values);
@@ -52,9 +56,7 @@ export default function PhoneNumber({ userData: { phoneNumber }, handleChangeSte
           )}
         />
 
-        <Button type="submit" form="form-rhf-input">
-          دریافت کد تایید
-        </Button>
+        <SubmitButton title="دریافت کد تایید" loading={isSubmitting} disabled={isSubmitting} form="form-rhf-input" />
       </FieldGroup>
     </form>
   );

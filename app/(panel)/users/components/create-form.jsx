@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/toast";
 import { userSchema } from "@/lib/validation/user";
 import { createUser, editUser } from "../actions/crud";
+import SubmitButton from "@/components/submit-button";
 
 export default function CreateForm({ id, initialData, onComplete }) {
   const defaultValues = initialData ? { ...initialData } : { phoneNumber: "", fullName: null };
@@ -17,7 +18,11 @@ export default function CreateForm({ id, initialData, onComplete }) {
     defaultValues,
   });
 
-  const { control, handleSubmit } = form;
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = form;
 
   const onSubmit = async (values) => {
     if (initialData) {
@@ -76,9 +81,12 @@ export default function CreateForm({ id, initialData, onComplete }) {
           )}
         />
 
-        <Button type="submit" form="form-rhf-input">
-          {initialData ? "ویرایش" : "افزودن"}
-        </Button>
+        <SubmitButton
+          title={initialData ? "ویرایش" : "افزودن"}
+          loading={isSubmitting}
+          disabled={isSubmitting}
+          form="form-rhf-input"
+        />
       </FieldGroup>
     </form>
   );

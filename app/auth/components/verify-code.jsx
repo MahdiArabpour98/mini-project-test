@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/toast";
 import { verifyCodeSchema } from "@/lib/validation/auth";
 import { checkVerifyCode } from "../actions/authentication";
+import SubmitButton from "@/components/submit-button";
 
 export default function VerifyCode({ userData, handleChangeStep }) {
   const form = useForm({
@@ -15,7 +16,11 @@ export default function VerifyCode({ userData, handleChangeStep }) {
     },
   });
 
-  const { control, handleSubmit } = form;
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = form;
 
   const onSubmit = async (values) => {
     const res = await checkVerifyCode({ ...values, token: userData.token, phoneNumber: userData.phoneNumber });
@@ -53,10 +58,11 @@ export default function VerifyCode({ userData, handleChangeStep }) {
             </Field>
           )}
         />
-        <Button type="submit" form="form-rhf-input">
-          تایید
-        </Button>
+
+        <SubmitButton title="تایید" loading={isSubmitting} disabled={isSubmitting} form="form-rhf-input" />
+
         <Button
+          disabled={isSubmitting}
           type="button"
           variant="outline"
           onClick={() => {
