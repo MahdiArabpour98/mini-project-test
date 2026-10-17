@@ -1,6 +1,7 @@
 "use client";
 
 import { createColumnHelper } from "@tanstack/react-table";
+import CellActions from "./cell-actions";
 
 const columnHelper = createColumnHelper();
 
@@ -20,7 +21,7 @@ export const columns = columnHelper.columns([
   columnHelper.accessor("display", {
     header: "عملیات",
     cell: ({ row }) => {
-      return <div className="">عملیات ها</div>;
+      return <CellActions cellData={row.original} />;
     },
   }),
 ]);

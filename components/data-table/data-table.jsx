@@ -22,7 +22,9 @@ export function DataTable({ columns, data }) {
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
-                    {header.isPlaceholder ? null : <table.FlexRender header={header} />}
+                    <div className="flex items-center justify-center">
+                      {header.isPlaceholder ? null : <table.FlexRender header={header} />}
+                    </div>
                   </TableHead>
                 );
               })}
@@ -35,7 +37,9 @@ export function DataTable({ columns, data }) {
               <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
-                    <table.FlexRender cell={cell} />
+                    <div className="flex items-center justify-center">
+                      <table.FlexRender cell={cell} />
+                    </div>
                   </TableCell>
                 ))}
               </TableRow>
