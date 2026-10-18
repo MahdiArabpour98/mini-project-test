@@ -10,16 +10,26 @@ export const getAllUsers = async (options = {}) => {
   const perPage = options?.perPage || 10;
   const skip = (page - 1) * perPage;
   const take = perPage;
+  const role = options?.role;
+
+  console.log("roleeeeeeeeeeeeeeeeeee", role);
 
   const searchString = options.q;
 
   const searchFilter = {
-    OR: [
-      { fullName: { contains: searchString, mode: "insensitive" } },
-      { phoneNumber: { contains: searchString, mode: "insensitive" } },
-      { nationalCode: { contains: searchString, mode: "insensitive" } },
+    AND: [
+      {
+        OR: [
+          { fullName: { contains: searchString, mode: "insensitive" } },
+          { phoneNumber: { contains: searchString, mode: "insensitive" } },
+          { nationalCode: { contains: searchString, mode: "insensitive" } },
+        ],
+      },
+      role && (role === "ADMIN" || role === "USER") ? { role } : {},
     ],
   };
+
+  console.log("searchFilter", searchFilter);
 
   const where = searchFilter;
 
@@ -27,7 +37,6 @@ export const getAllUsers = async (options = {}) => {
 
   const data = await prismadb.user.findMany({
     where,
-    include: { posts: true },
     orderBy: { createdAt: "desc" },
     skip,
     take,
