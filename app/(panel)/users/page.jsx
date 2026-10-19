@@ -5,13 +5,14 @@ import CreateModal from "./components/create-modal";
 import { Suspense } from "react";
 import SearchTable from "@/components/search-table";
 import HandleFilter from "@/components/handle-filter";
+import HandlePagination from "@/components/pagination";
 
 export default async function UsersPage({ searchParams }) {
   const { page, perPage, q = "", role } = await searchParams;
 
   const fetchData = await getAllUsers({
-    page: page ? +page : 1,
-    perPage: perPage ? +perPage : 10,
+    page: +page ? +page : 1,
+    perPage: +perPage ? +perPage : 10,
     q: q || "",
     role: role || null,
   });
@@ -27,6 +28,7 @@ export default async function UsersPage({ searchParams }) {
         <SearchTable q={q} />
         <HandleFilter currentRole={role} />
         <DataTable columns={columns} data={data} options={otherData} />
+        <HandlePagination page={page ? +page : 1} perPage={perPage ? +perPage : 10} total={otherData?.total || 0} />
       </div>
     </Suspense>
   );

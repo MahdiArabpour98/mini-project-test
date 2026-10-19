@@ -36,8 +36,6 @@ export default function HandleFilter({ currentRole }) {
     router.push(url);
   };
 
-  console.log("currentRole", currentRole);
-
   return (
     <Select items={items} value={currentRole} onValueChange={(role) => pushQuery(role)}>
       <SelectTrigger className="w-45">
