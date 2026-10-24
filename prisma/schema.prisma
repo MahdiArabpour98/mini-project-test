@@ -8,21 +8,29 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  phoneNumber  String   @unique
-  username     String?  @unique
-  fullName     String?
-  nationalCode String?
-  email        String?
-  password     String?
-  profileImage String?  @unique
-  thumbnail    String?  @unique
-  address      String?
-  balance      String   @default("0")
-  role         RoleName @default(USER)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  posts        Post[]
+  id                  Int       @id @default(autoincrement())
+  phoneNumber         String    @unique
+  username            String?   @unique
+  fullName            String?
+  nationalCode        String?
+  email               String?
+  password            String?
+  profileImage        String?   @unique
+  thumbnail           String?   @unique
+  address             String?
+  balance             String    @default("0")
+  role                RoleName  @default(USER)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  posts               Post[]
+  name                String?
+  emailVerified       Boolean   @default(false)
+  phoneNumberVerified Boolean   @default(false)
+  image               String?
+  sessions            Session[]
+  accounts            Account[]
+
+  @@map("user")
 }
 
 model Post {
@@ -38,4 +46,52 @@ model Post {
 enum RoleName {
   ADMIN
   USER
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    Int       @id @default(autoincrement())
+  accountId             String
+  providerId            String
+  userId                Int
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         Int      @id @default(autoincrement())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
 }

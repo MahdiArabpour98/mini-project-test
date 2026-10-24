@@ -7,8 +7,12 @@ import { toast } from "@/components/ui/toast";
 import { verifyCodeSchema } from "@/lib/validation/auth";
 import { checkVerifyCode } from "../actions/authentication";
 import SubmitButton from "@/components/submit-button";
+import { useRouter } from "next/navigation";
+import { routes } from "@/lib/routes/routes";
 
 export default function VerifyCode({ userData, handleChangeStep }) {
+  const router = useRouter();
+
   const form = useForm({
     resolver: zodResolver(verifyCodeSchema),
     defaultValues: {
@@ -25,12 +29,12 @@ export default function VerifyCode({ userData, handleChangeStep }) {
   const onSubmit = async (values) => {
     const res = await checkVerifyCode({ ...values, token: userData.token, phoneNumber: userData.phoneNumber });
 
-    // console.log("res", res);
-
     if (res?.ok) {
       toast.add({
         title: res?.message,
       });
+
+      router.replace(routes.root);
     } else {
       toast.add({
         title: res?.message,

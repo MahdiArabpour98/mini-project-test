@@ -1,8 +1,6 @@
 "use server";
 
-import { generateRandomNumber } from "@/lib/generate-random-number";
-import { handleSendSMS } from "@/lib/handle-send-sms";
-import { signJWTAccessToken, verifyJWT } from "@/lib/jwt";
+import { auth } from "@/lib/auth";
 import prismadb from "@/lib/prismadb";
 import { phoneNumberSchema, verifyCodeSchema } from "@/lib/validation/auth";
 
@@ -19,67 +17,23 @@ export const sendVerifyCode = async (values) => {
       };
     }
 
-    const { phoneNumber, fullName } = values;
+    const { phoneNumber } = values;
 
     const user = await prismadb.user.upsert({
-      where: {
-        phoneNumber,
-      },
-      create: { phoneNumber, fullName },
+      where: { phoneNumber },
+      create: { phoneNumber },
       update: {},
     });
 
-    const randomNumber = generateRandomNumber(5, "string");
+    const data = await auth.api.sendPhoneNumberOTP({
+      body: { phoneNumber },
+    });
 
-    console.log("randomNumber", randomNumber);
-
-    const verifyToken = signJWTAccessToken({ ...values, code: randomNumber }, 600);
-
-    const smsInitialData = {
-      mobile: phoneNumber,
-      templateId: "151988",
-      parameters: [
-        {
-          name: "CODE",
-          value: randomNumber,
-        },
-      ],
+    return {
+      ok: true,
+      data: { ...values },
+      message: "کد تایید با موفقیت ارسال شد.",
     };
-
-    var smsRes = {
-      ok: false,
-    };
-
-    await handleSendSMS(smsInitialData)
-      .then((res) => {
-        console.log("sms-res", res);
-        if (res?.data?.status === 1) {
-          smsRes = {
-            message: "کد تایید برای شما ارسال شد",
-            status: 200,
-            data: {
-              ...values,
-              token: verifyToken,
-            },
-            ok: true,
-          };
-        } else {
-          smsRes = {
-            message: defaultMessages?.errors?.internalError,
-            status: 400,
-            ok: false,
-          };
-        }
-      })
-      .catch(() => {
-        smsRes = {
-          message: defaultMessages?.errors?.internalError,
-          status: 400,
-          ok: false,
-        };
-      });
-
-    return smsRes;
   } catch (error) {
     console.log("[SEND_VERIFY_CODE_ERROR]", error);
 
@@ -97,7 +51,6 @@ export const sendVerifyCode = async (values) => {
 export const checkVerifyCode = async (values) => {
   try {
     const validateData = verifyCodeSchema.safeParse(values);
-    console.log("values", values);
 
     if (!validateData.success) {
       return {
@@ -108,22 +61,23 @@ export const checkVerifyCode = async (values) => {
       };
     }
 
-    const validateToken = values?.token ? verifyJWT(values?.token) : null;
+    const { code, phoneNumber } = values;
 
-    // console.log("validateToken", validateToken);
+    const data = await auth.api.verifyPhoneNumber({
+      body: {
+        phoneNumber,
+        code,
+        disableSession: false,
+        updatePhoneNumber: false,
+      },
+    });
 
-    if (!validateToken || validateToken?.code !== values?.code || validateToken?.phoneNumber !== values?.phoneNumber) {
-      return {
-        message: "کد تایید وارد شده صحیح نمیباشد",
-        status: 400,
-        ok: false,
-      };
-    }
+    console.log("data", data);
 
     return {
-      message: "خوش آمدید",
-      status: 200,
       ok: true,
+      data,
+      message: "شماره موبایل با موفقیت تأیید شد.",
     };
   } catch (error) {
     console.log("[CHECK_VERIFY_CODE_ERROR]", error.message);

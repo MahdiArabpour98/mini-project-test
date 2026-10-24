@@ -24,7 +24,7 @@ export default function PhoneNumber({ userData: { phoneNumber }, handleChangeSte
   const onSubmit = async (values) => {
     const res = await sendVerifyCode(values);
 
-    console.log("res", res);
+    console.log("sending-res", res);
 
     if (res?.ok) {
       toast.add({
